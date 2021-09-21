@@ -1,13 +1,13 @@
 package alex.carsrus.config;
 
-import alex.carsrus.entity.Car;
-import alex.carsrus.repo.CarRepo;
+import alex.carsrus.car.Car;
+import alex.carsrus.car.CarRepo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DataSetup implements CommandLineRunner {
-    private CarRepo repo;
+    private final CarRepo repo;
 
     public DataSetup(CarRepo repo) {
         this.repo = repo;
