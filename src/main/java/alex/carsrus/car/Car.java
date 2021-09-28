@@ -13,7 +13,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(name = "car")
+@Entity
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -13,7 +13,7 @@ public class ReservationService {
     }
 
     public boolean isCarFree(int carId, LocalDate date){
-        Reservation res =  reservationRepo.findReservationByCar_IdAndRentalDate(carId,date);
+        Reservation res =  reservationRepo.findReservationByCar_CarIdAndRentalDate(carId,date);
         return res == null;
     }
 }

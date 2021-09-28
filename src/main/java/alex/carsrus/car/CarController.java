@@ -1,11 +1,9 @@
 package alex.carsrus.car;
 
-
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api/cars", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/cars")
 
 public class CarController {
 
@@ -17,37 +15,25 @@ public class CarController {
 
 
     @GetMapping("/{id}")
-    CarDTO findCarById(@PathVariable int id) {
+    CarDTO getCarById(@PathVariable int id) {
         return service.getCar(id);
     }
 
     @GetMapping
-    Iterable<CarDTO> findAllCars() {
-        return service.getCars(null, null);
+    Iterable<CarDTO> getCars(@RequestParam(required = false) String brand, @RequestParam(required = false) String model) {
+        if(brand == null && model != null){
+            //We will eventually handle this better
+            throw new IllegalArgumentException("Brand required when model is supplied");
+        }
+        return service.getCars(brand,model);
     }
-
-    @GetMapping
-    Iterable<CarDTO> findCarsByBrand(String brand) {
-        return service.getCars(brand, null);
-    }
-
-    @GetMapping
-    Iterable<CarDTO> findCarsByBrandAndModel(String brand, String model) {
-        return service.getCars(brand, model);
-    }
-
-    @GetMapping
-    Iterable<CarDTO> findCarsByPricePerDayLessThan(int price) {return service.getCarsByPricePerDayLessThan(price);}
-
-    @GetMapping
-    Iterable<CarDTO> findCarsByPricePerDayLessThanEquals(int price) {return service.getCarsByPricePerDayLessThanEquals(price);}
 
     @PostMapping
     CarDTO addCar(@RequestBody CarDTO newCar) {return service.addCar(newCar);
     }
 
     @PutMapping("/{id}")
-    CarDTO editCar(@RequestBody CarDTO car, @PathVariable int id) throws Exception {
+    CarDTO editCar(@RequestBody CarDTO car, @PathVariable int id) {
         return service.editCar(car, id);
     }
 
